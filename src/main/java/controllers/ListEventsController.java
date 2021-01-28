@@ -10,18 +10,18 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import repositories.EventRepository;
+import repositories.DateRepository;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import entities.Event;
+import entities.Date;
 
 public class ListEventsController implements Initializable {
 
-    private final EventRepository eventRepository = new EventRepository();
+    private final DateRepository dateRepository = new DateRepository();
 
-    @FXML private TableView<Event> table;
+    @FXML private TableView<Date> table;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,47 +35,23 @@ public class ListEventsController implements Initializable {
     }
 
     private void configureTable() {
-        TableColumn<Event, Integer> iDColumn = new TableColumn<>("Id");
+        TableColumn<Date, Integer> iDColumn = new TableColumn<>("Id");
         iDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        iDColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.05));
+        iDColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
         iDColumn.setResizable(false);
 
-        TableColumn<Event, String> startDateColumn = new TableColumn<>("Start Date");
-        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        startDateColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
-        startDateColumn.setResizable(false);
-
-        TableColumn<Event, String> endDateColumn = new TableColumn<>("End Date");
-        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        endDateColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
-        endDateColumn.setResizable(false);
-
-        TableColumn<Event, String> startTimeColumn = new TableColumn<>("Start Time");
-        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        startTimeColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
-        startTimeColumn.setResizable(false);
-
-        TableColumn<Event, String> endTimeColumn = new TableColumn<>("End Time");
-        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-        endTimeColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.15));
-        endTimeColumn.setResizable(false);
-
-        TableColumn<Event, String> location = new TableColumn<>("Location");
-        location.setCellValueFactory(new PropertyValueFactory<>("location"));
-        location.prefWidthProperty().bind(table.widthProperty().multiply(0.35));
-        location.setResizable(false);
+        TableColumn<Date, String> dateColumn = new TableColumn<>("Date");
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.80));
+        dateColumn.setResizable(false);
 
         table.getColumns().add(iDColumn);
-        table.getColumns().add(startDateColumn);
-        table.getColumns().add(endDateColumn);
-        table.getColumns().add(startTimeColumn);
-        table.getColumns().add(endTimeColumn);
-        table.getColumns().add(location);
+        table.getColumns().add(dateColumn);
     }
 
     private void populateTable() {
-        ObservableList<Event> list = FXCollections.observableArrayList();
-        list.addAll(eventRepository.findAll());
+        ObservableList<Date> list = FXCollections.observableArrayList();
+        list.addAll(dateRepository.findAll());
         table.setItems(list);
     }
 }

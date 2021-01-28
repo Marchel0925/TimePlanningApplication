@@ -1,7 +1,8 @@
 package utils;
 
-import entities.Description;
-import entities.Event;
+import entities.Details;
+import entities.Time;
+import entities.Date;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -15,7 +16,7 @@ import static java.util.Arrays.asList;
 
 public class HibernateSessionBuilder {
 
-    private static final List<Class> ENTITIES = asList(Event.class, Description.class);
+    private static final List<Class> ENTITIES = asList(Date.class, Time.class, Details.class);
 
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_DIALECT = "org.hibernate.dialect.MySQLDialect";
