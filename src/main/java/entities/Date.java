@@ -25,12 +25,6 @@ public class Date {
     public Date() {
     }
 
-    public Date(java.sql.Date startDate, java.sql.Date endDate, Set<Time> timeSet) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.timeSet = timeSet;
-    }
-
     public Integer getId() {
         return id;
     }

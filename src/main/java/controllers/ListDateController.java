@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.view.ViewLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -16,7 +16,6 @@ import repositories.DateRepository;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import entities.Date;
 
@@ -30,6 +29,13 @@ public class ListDateController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configureTable();
         populateTable();
+    }
+
+    @FXML
+    public void addDateWindow(ActionEvent event) throws Exception {
+        AddDateController controller = (AddDateController) ViewLoader
+                .load(getClass().getResource("/ui/add_date.fxml"), "Add Date");
+        controller.addPostOperationCallback(this::populateTable);
     }
 
     @FXML
