@@ -7,17 +7,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import repositories.DateRepository;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import entities.Date;
 
-public class ListEventsController implements Initializable {
+public class ListDateController implements Initializable {
 
     private final DateRepository dateRepository = new DateRepository();
 
@@ -40,18 +43,34 @@ public class ListEventsController implements Initializable {
         iDColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.2));
         iDColumn.setResizable(false);
 
-        TableColumn<Date, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        dateColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.80));
-        dateColumn.setResizable(false);
+        TableColumn<Date, String> startDateColumn = new TableColumn<>("Start Date");
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        startDateColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.4));
+        startDateColumn.setResizable(false);
+
+        TableColumn<Date, String> endDateColumn = new TableColumn<>("End Date");
+        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        endDateColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.4));
+        endDateColumn.setResizable(false);
 
         table.getColumns().add(iDColumn);
-        table.getColumns().add(dateColumn);
+        table.getColumns().add(startDateColumn);
+        table.getColumns().add(endDateColumn);
     }
 
     private void populateTable() {
         ObservableList<Date> list = FXCollections.observableArrayList();
-        list.addAll(dateRepository.findAll());
+        list.addAll(populateEmptyFields());
         table.setItems(list);
+    }
+
+    private List<Date> populateEmptyFields(){
+        List<Date> list = dateRepository.findAll();
+        for(Date date: list){
+            if(date.getEndDate() == null){
+                date.setEndDate(date.getStartDate());
+            }
+        }
+        return list;
     }
 }

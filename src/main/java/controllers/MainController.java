@@ -23,7 +23,7 @@ public class MainController {
 
     @FXML
     private void openApplication(ActionEvent event) throws IOException {
-        Parent loader = FXMLLoader.load(getClass().getResource("/ui/list_events.fxml"));
+        Parent loader = FXMLLoader.load(getClass().getResource("/ui/list_date.fxml"));
         Scene scene = new Scene(loader);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(scene);

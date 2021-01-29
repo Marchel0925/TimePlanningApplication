@@ -11,9 +11,6 @@ public class Time {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "endDate")
-    private java.sql.Date endDate;
-
     @Column(name = "startTime")
     private java.sql.Time startTime;
 
@@ -27,8 +24,7 @@ public class Time {
     public Time() {
     }
 
-    public Time(java.sql.Date endDate, java.sql.Time startTime, java.sql.Time endTime, Date date) {
-        this.endDate = endDate;
+    public Time(java.sql.Time startTime, java.sql.Time endTime, Date date) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
@@ -40,14 +36,6 @@ public class Time {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public java.sql.Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(java.sql.Date endDate) {
-        this.endDate = endDate;
     }
 
     public java.sql.Time getStartTime() {
