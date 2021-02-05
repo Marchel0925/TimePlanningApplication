@@ -1,14 +1,17 @@
 package controllers;
 
 import controllers.view.ViewLoader;
+import guiControl.Alerts;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import repositories.DateRepository;
@@ -22,6 +25,7 @@ import entities.Date;
 public class ListDateController implements Initializable {
 
     private final DateRepository dateRepository = new DateRepository();
+    private final Alerts alerts = new Alerts();
 
     @FXML private TableView<Date> table;
 
@@ -41,6 +45,19 @@ public class ListDateController implements Initializable {
     @FXML
     public void closeWindow(ActionEvent event) {
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+    }
+
+    @FXML
+    private void deleteDate(ActionEvent event){
+        if(table.getSelectionModel().getSelectedItem() == null){
+            ObservableList<Date> dates = table.getItems();
+            Date date = dates.get(dates.size() - 1);
+            dateRepository.delete(date);
+            populateTable();
+        } else {
+            dateRepository.delete(table.getSelectionModel().getSelectedItem());
+            populateTable();
+        }
     }
 
     private void configureTable() {

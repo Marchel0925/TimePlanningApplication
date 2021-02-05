@@ -20,6 +20,7 @@ public class HibernateSessionBuilder {
 
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_DIALECT = "org.hibernate.dialect.MySQLDialect";
+    private static final String HBM2DDL_AUTO = "validate";
 
     private static SessionFactory sessionFactory;
 
@@ -65,6 +66,7 @@ public class HibernateSessionBuilder {
         properties.put(Environment.DIALECT, DB_DIALECT);
         properties.put(Environment.SHOW_SQL, "true");
         properties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+        properties.put(Environment.HBM2DDL_AUTO, HBM2DDL_AUTO);
         return properties;
     }
 
